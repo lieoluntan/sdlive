@@ -48,6 +48,8 @@ public class DepartmentController {
     // TODO Auto-generated method stub
     response.setContentType("text/html;charset=utf-8");
     PrintWriter out = response.getWriter();
+    
+//    String testqqiu = request.getParameter("qqiu");//测试handleRequest 默认获取
 
     if (qqiu.equals("add") || qqiu.equals("delete") || qqiu.equals("edit")
             || qqiu.equals("getOne") || qqiu.equals("on_off")) {
