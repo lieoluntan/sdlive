@@ -1,34 +1,57 @@
 ﻿--------------------------------------
 --2、意向学员表t_yxstudent
 
-CREATE TABLE t_yxstudent (
+CREATE TABLE t_talkroom (
   uuid varchar(50) NOT NULL,
-  name varchar(50) NOT NULL,
-  sex varchar(50) DEFAULT NULL,
-  phone varchar(50) DEFAULT NULL,
-  grade varchar(50) DEFAULT NULL,
-  school varchar(50) DEFAULT NULL,
-  weixin varchar(50) DEFAULT NULL,
   
-  studentID int NOT NULL,
-  
-  parentRela varchar(50) DEFAULT NULL,
-  parentName varchar(50) DEFAULT NULL,
-  parentPhone varchar(50) DEFAULT NULL,
-  parentWeixin varchar(50) DEFAULT NULL,
-  
-    
-  parentRela2 varchar(50) DEFAULT NULL,
-  parentName2 varchar(50) DEFAULT NULL,
-  parentPhone2 varchar(50) DEFAULT NULL,
-  parentWeixin2 varchar(50) DEFAULT NULL,
-  
-  empUuid varchar(50) NOT NULL,
-  rank varchar(50) NOT NULL,
-  source varchar(50) NOT NULL,
-  courseYX varchar(250) NOT NULL,
-  
+  urlRemark varchar(255) DEFAULT NULL,
   openAndclose varchar(10) DEFAULT NULL,
+  
+  keyTalk varchar(16) NOT NULL,
+  serialTalk int NOT NULL,
+  roomNameTalk varchar(50) NOT NULL,
+  roomtypeTalk int NOT NULL,
+  starttimeTalk int NOT NULL,
+  endtimeTalk int NOT NULL,
+  chairmanpwd varchar(16) NOT NULL,
+  assistantpwd varchar(16) NOT NULL,
+  patrolpwd varchar(16) NOT NULL,
+  passwordrequired int NOT NULL,
+  confuserpwd varchar(20) NOT NULL,
+  videotype int NOT NULL,
+  videoframerate int NOT NULL,
+  confusernum int NOT NULL,
+  autoopenav  int NOT NULL,
+  
+  createDate datetime DEFAULT NULL,
+  modifyDate datetime DEFAULT NULL,
+  createPeople varchar(50) DEFAULT NULL,
+  modifyPeople varchar(50) DEFAULT NULL,
+  
+  PRIMARY KEY (uuid)
+);
+
+
+--2、gotalk表t_gotalk
+
+CREATE TABLE t_gotalk (
+  uuid varchar(50) NOT NULL,
+  
+  name varchar(30) NOT NULL,
+  urlRemark varchar(255) DEFAULT NULL,
+  openAndclose varchar(10) DEFAULT NULL,
+  
+  domain varchar(20) NOT NULL,
+  serialTalk int NOT NULL,
+  username varchar(20) NOT NULL,
+  usertype int NOT NULL,
+  pid int NOT NULL,
+  ts int NOT NULL,
+  auth varchar(32) NOT NULL,
+  userpassword varchar(32) NOT NULL,
+  servername varchar(32) NOT NULL,
+  extradata varchar(32) DEFAULT NULL,
+  jumpurl varchar(255) DEFAULT NULL,
   
   createDate datetime DEFAULT NULL,
   modifyDate datetime DEFAULT NULL,
