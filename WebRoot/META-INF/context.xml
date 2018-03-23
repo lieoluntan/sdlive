@@ -5,7 +5,7 @@
             username="aaabbbfff"
             password="aaabbb"
             driverClassName="com.mysql.jdbc.Driver"
-            url="jdbc:mysql://101.132.130.149:3306/UserDB_yxcrm"
+            url="jdbc:mysql://101.132.130.149:3306/userdb_sdlive"
             
             maxActive="200"
             initialSize="10" 
