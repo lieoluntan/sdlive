@@ -1,6 +1,9 @@
 package com.sdlive.utility;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -8,7 +11,7 @@ import java.util.UUID;
 
 import com.sdlive.model.Department;
 import com.sdlive.model.TalkRoom;
-
+import com.sdlive.model.GoTalk;
 import com.sdlive.system.model.Resource;
 import com.sdlive.system.model.Role;
 import com.sdlive.system.model.RoleResource;
@@ -123,12 +126,77 @@ public class T_DataMap2Bean {
 		tr.setUuid(uuid);
 		
 		return tr;
-
 	}
-	
-
-
-
+	  public GoTalk MapToGoTalk(Map<String, Object> map) {
+		    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
+		    String name = (String) map.get("name");
+		    String urlRemark = (String) map.get("urlRemark");
+		    String openAndclose = (String) map.get("openAndclose");
+		    String domain = (String) map.get("domain");
+		    
+		    String serialTalk = (String) map.get("serialTalk");
+		    if(serialTalk==null){
+		    	serialTalk="0";
+		    }
+		    int serialTalk2=Integer.parseInt(serialTalk);
+		    
+		    String username = (String) map.get("username");
+		    
+		    
+		    String usertype = (String) map.get("usertype");
+		    if(usertype==null){
+		    	usertype="0";
+		    }
+		    int userType2=Integer.parseInt(usertype);
+		    String pid = (String) map.get("pid");
+		    if(pid==null){
+		    	pid="0";
+		    }
+		    int pid2=Integer.parseInt(pid);
+		    
+		    String ts = (String) map.get("ts");
+		    if(ts==null){
+		    	ts="0";
+		    }
+		    SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+		    Date date=null;
+		    try {
+		    	date = format.parse(ts);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+		    int timestamp = (int) (date.getTime() / 1000.0);
+		    String ts2=timestamp+"";
+		    int ts3=Integer.parseInt(ts2);
+		    
+		    
+		    String auth = (String) map.get("auth");
+		    
+		    String userpassword = (String) map.get("userpassword");
+		    String servername = (String) map.get("servername");
+		    String extradata = (String) map.get("extradata");
+		    String jumpurl = (String) map.get("jumpurl");
+		    
+		    String createDate = (String) map.get("createDate");
+		    String modifyDate = (String) map.get("modifyDate");
+		    String createPeople = (String) map.get("createPeople");
+		    String modifyPeople = (String) map.get("modifyPeople");
+		    
+		    GoTalk goTalk = new GoTalk(uuid, name, urlRemark, openAndclose, domain,serialTalk2,  username, userType2, pid2, ts3, auth, 
+		    		userpassword, servername, extradata, jumpurl, createDate, modifyDate, createPeople, modifyPeople);
+		    
+		    goTalk.setName(name);
+		    goTalk.setUsername(username);
+		    goTalk.setUsertype(userType2);
+		    goTalk.setTs(ts3);
+		    goTalk.setUserpassword(userpassword);
+		    goTalk.setExtradata(extradata);
+		    goTalk.setJumpurl(jumpurl);
+		    
+		    
+		    return goTalk;
+		  }//end method
 
 	public Role MapToRole(Map<String, Object> map) {
 		String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
