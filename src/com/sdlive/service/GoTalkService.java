@@ -11,4 +11,12 @@ import com.sdlive.model.GoTalk;
 public interface GoTalkService {
 	//新增一键直播
 	public boolean insert(GoTalk goTalk);
+	//删除
+	public String delete(String uuid);
+	//一键直播开关
+	String getonoff(GoTalk goTalk);
+	//查询单个一键登录直播
+	GoTalk getByUuid(String uuid);
+	//修改一键登录直播
+	String update(GoTalk goTalk);
 }

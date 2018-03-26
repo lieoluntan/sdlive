@@ -69,21 +69,25 @@ public class T_DataMap2Bean {
 		    int pid2=Integer.parseInt(pid);
 		    
 		    String ts = (String) map.get("ts");
-		    if(ts==null){
-		    	ts="0";
+		    int ts3;
+		    String ts2 = null;
+		    if(ts!=null){
+		    	SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+			    Date date=null;
+			    try {
+			    	date = format.parse(ts);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}  
+			    int timestamp = (int) (date.getTime() / 1000.0);
+			    ts2=timestamp+"";
+			    
+		    }else{
+		    	ts2="0";
+		    	ts3=Integer.parseInt(ts2);
 		    }
-		    SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-		    Date date=null;
-		    try {
-		    	date = format.parse(ts);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}  
-		    int timestamp = (int) (date.getTime() / 1000.0);
-		    String ts2=timestamp+"";
-		    int ts3=Integer.parseInt(ts2);
-		    
+		    ts3=Integer.parseInt(ts2);
 		    
 		    String auth = (String) map.get("auth");
 		    
