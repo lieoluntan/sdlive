@@ -1,13 +1,10 @@
 package com.sdlive.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.sdlive.model.BackResult;
-import com.sdlive.model.Department;
 import com.sdlive.model.GoTalk;
 import com.sdlive.service.impl.GoTalkServiceImpl;
 import com.sdlive.utility.T_DataControl;
@@ -64,10 +60,10 @@ public class GoTalkController{
 	        }
 	        qqiuchocie(qqiu, goTalk);
 	    } else if (qqiu.equals("list")) {
-	       /* ArrayList<Department> resultList = departmentService.getList();
+	        ArrayList<GoTalk> resultList = goTalkServiceImpl.getList();
 	        backResult.setMessage("信息值：成功");
 	        backResult.setQingqiu("list查询列表");
-	        backResult.setData(resultList);*/
+	        backResult.setData(resultList);
 	    } else {
 	        System.out.println("qqiu请求参数  " + qqiu + "  不规范");
 	    }
@@ -107,10 +103,61 @@ public class GoTalkController{
 	        backResult.setQingqiu("请求值,默认");
 	    }
 	    if (add) {
-	    	goTalkServiceImpl.insert(goTalk);
-	        logger.error("日志打印测试YXRecordController测试test方法,测试成功");      
-	        backResult.setMessage("信息值,新增成功");
-	        backResult.setQingqiu("请求值,默认");
+	    	String result = goTalkServiceImpl.insert(goTalk);
+	        ArrayList<String> resultList = new ArrayList<String>();
+	        resultList.add(result);
+	        backResult.setMessage("信息值：成功");
+	        backResult.setQingqiu("add新增");
+	        backResult.setData(resultList);
+	    }
+	    if (delete) {
+	    	String result =goTalkServiceImpl.delete(goTalk.getUuid());
+	    	ArrayList<String> resultList = new ArrayList<String>();
+	        resultList.add(result);
+	        logger.error("日志打印测试YXRecordController测试delete方法,测试成功");      
+	        backResult.setMessage("信息值,成功");
+	        backResult.setQingqiu("请求值,delete删除");
+	        backResult.setData(resultList);
+	    }
+	    if (on_off) {
+	        String oAc = goTalk.getOpenAndclose() + "";
+	        String flagQqiu = "初始值";
+	        String result = "初始值";
+	        if (oAc.equals("open") || oAc.equals("close")) {
+	            if (oAc.equals("open")) {
+	                flagQqiu = "on";
+	            }
+	            if (oAc.equals("close")) {
+	                flagQqiu = "off";
+	            }
+	            result = goTalkServiceImpl.getonoff(goTalk);
+	        } else {
+	            flagQqiu = "err";
+	            result = "操作失败：开关参数不规范" + "(" + oAc + "),联系前端开发";
+	            logger.error("操作失败：开关参数不规范" + "(" + oAc + "),联系前端开发");
+	        }
+	        ArrayList<String> resultList = new ArrayList<String>();
+	        resultList.add(result);
+	        backResult.setMessage(result);
+	        backResult.setQingqiu(flagQqiu);
+	        backResult.setData(resultList);
+	    }
+	    if (getOne) {
+	        GoTalk result = goTalkServiceImpl.getByUuid(goTalk
+	                .getUuid());
+	        ArrayList<GoTalk> resultList = new ArrayList<GoTalk>();
+	        resultList.add(result);
+	        backResult.setMessage("信息值：成功");
+	        backResult.setQingqiu("getOne查询单条记录");
+	        backResult.setData(resultList);
+	    }
+	    if (edit) {
+	        String result = goTalkServiceImpl.update(goTalk);
+	        ArrayList<String> resultList = new ArrayList<String>();
+	        resultList.add(result);
+	        backResult.setMessage("信息值：成功");
+	        backResult.setQingqiu("edit修改");
+	        backResult.setData(resultList);
 	    }
 	    
 	}

@@ -39,7 +39,7 @@ public class GoTalk {
     super();
     this.setKeyTalk("yil97lLwpd6uELjB"); //测试默认key
     this.domain = "test";
-    this.serialTalk = 772152415;
+    this.serialTalk = 1017067284;
     this.usertype = 2;
     this.pid = 0;
   }
