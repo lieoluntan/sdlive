@@ -44,7 +44,29 @@ public class GoTalk {
     this.pid = 0;
   }
 
-
+  public GoTalk(String uuid,String name,String urlRemark,String openAndclose,String domain,int serialTalk,String username,int usertype,int pid,int ts,String auth, 
+		String userpassword,String servername,String extradata,String jumpurl,String createDate,String modifyDate,String createPeople,String modifyPeople) {
+	    super();
+	    this.uuid = uuid;
+	    this.name = name;
+	    this.urlRemark = urlRemark;
+	    this.openAndclose = openAndclose;
+	    this.domain = domain;
+	    this.serialTalk = serialTalk;
+	    this.username = username;
+	    this.usertype = usertype;
+	    this.pid = pid;
+	    this.ts = ts;
+	    this.auth = auth;
+	    this.userpassword = userpassword;
+	    this.servername = servername;
+	    this.extradata = extradata;
+	    this.jumpurl = jumpurl;
+	    this.createDate = createDate;
+	    this.modifyDate = modifyDate;
+	    this.createPeople = createPeople;
+	    this.modifyPeople = modifyPeople;
+	  }
   
   
 
