@@ -31,10 +31,13 @@ public class GoTalk {
   private String extradata;//扩展数据，用户扩展数据，建议urlencode
   private String jumpurl;//课程结束后跳转到官网页 crm.shudailaoshi.com
   
+  private String keyTalk;
+  
 //第三方接口使用字段end
 
   public GoTalk() {
     super();
+    this.setKeyTalk("yil97lLwpd6uELjB"); //测试默认key
     this.domain = "test";
     this.serialTalk = 772152415;
     this.usertype = 2;
@@ -395,6 +398,24 @@ public class GoTalk {
 
   public void setJumpurl(String jumpurl) {
     this.jumpurl = jumpurl;
+  }
+
+
+
+
+
+
+  public String getKeyTalk() {
+    return keyTalk;
+  }
+
+
+
+
+
+
+  public void setKeyTalk(String keyTalk) {
+    this.keyTalk = keyTalk;
   }
   
   
