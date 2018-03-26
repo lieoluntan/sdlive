@@ -1,5 +1,6 @@
 package com.sdlive.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.sdlive.model.GoTalk;
@@ -23,4 +24,7 @@ public interface GoTalkDao {
 	public boolean update(GoTalk goTalk);
 	//验证一键登录直播是否存在
 	public List<GoTalk> getGoTalkByUuid(GoTalk goTalk);
+	
+	//查询所有一键登录直播
+	public ArrayList<GoTalk> getList();
 }

@@ -2,6 +2,7 @@ package com.sdlive.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -30,9 +31,12 @@ public class GoTalkServiceImpl implements GoTalkService{
 	MD5Util md5=new MD5Util();
 	
 	@Override
-	public boolean insert(GoTalk goTalk) {
+	public String insert(GoTalk goTalk) {
 		// TODO Auto-generated method stub
+		goTalk.setUuid(UUID.randomUUID().toString());
+		
 		GoTalk defaultGoTalk=new GoTalk();
+		
 		goTalk.setKeyTalk(defaultGoTalk.getKeyTalk());
 		goTalk.setDomain(defaultGoTalk.getDomain());
 		goTalk.setSerialTalk(defaultGoTalk.getSerialTalk());
@@ -41,9 +45,11 @@ public class GoTalkServiceImpl implements GoTalkService{
 		
 		String authStr =goTalk.getKeyTalk()+goTalk.getTs()+goTalk.getSerialTalk()+goTalk.getUsertype();
 		String auth=md5.MD5(authStr);
+		goTalk.setAuth(auth);
 		
 		getserverarea();
 		String servicename="asa";
+		goTalk.setServername(servicename);
 		
 		String username = md5.encode(goTalk.getUsername());
 		List<ParamsBean> list = new ArrayList<ParamsBean>();
@@ -70,15 +76,22 @@ public class GoTalkServiceImpl implements GoTalkService{
 		list.add(new ParamsBean("extradata", goTalk.getExtradata()));
 		list.add(new ParamsBean("servername", servicename));
 		list.add(new ParamsBean("jumpurl", "crm.shudailaoshi.com"));
-		HttpUtils.httpSend(url, list, new RequestCallback()
+		String urlRemark=HttpUtils.httpSend(url, list, new RequestCallback()
 		{
 			public void callBack(String res)
 			{
 				//System.out.println(res);
 			}
 		});
-		
-		return false;
+		list.add(new ParamsBean("urlRemark", urlRemark));
+		goTalk.setUrlRemark(urlRemark);
+		boolean daoFlag=goTalkDao.insert(goTalk);
+		if (daoFlag) {
+			return goTalk.getUuid();
+		} else {
+		  logger.error("插入不成功,dao层执行有出错地方,请联系管理员");
+			return "插入不成功,dao层执行有出错地方,请联系管理员";
+		}
 	}
 
 	
@@ -169,5 +182,12 @@ public class GoTalkServiceImpl implements GoTalkService{
 				return msg;
 			}
 		}
+
+
+	@Override
+	public ArrayList<GoTalk> getList() {
+		// TODO Auto-generated method stub
+		return goTalkDao.getList();
+	}
 	
 }

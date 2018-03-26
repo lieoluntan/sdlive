@@ -1,5 +1,7 @@
 package com.sdlive.service;
 
+import java.util.ArrayList;
+
 import com.sdlive.model.GoTalk;
 
 /**
@@ -10,7 +12,7 @@ import com.sdlive.model.GoTalk;
  */
 public interface GoTalkService {
 	//新增一键直播
-	public boolean insert(GoTalk goTalk);
+	public String insert(GoTalk goTalk);
 	//删除
 	public String delete(String uuid);
 	//一键直播开关
@@ -19,4 +21,6 @@ public interface GoTalkService {
 	GoTalk getByUuid(String uuid);
 	//修改一键登录直播
 	String update(GoTalk goTalk);
+	//获取一键登录直播列表
+	ArrayList<GoTalk> getList();
 }

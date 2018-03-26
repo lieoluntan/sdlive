@@ -220,12 +220,59 @@ public class GoTalkDaoImpl implements GoTalkDao{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("DepartmentDaoImpl中的getdMByName查询失败");
+			System.out.println("GoTalkDaoImpl中的getGoTalkByUuid查询失败");
 		}finally{
 			DBUtility.close(rs, statement, connection);
 		}
 		
 		return goTalkList;
+	}
+
+	@Override
+	public ArrayList<GoTalk> getList() {
+		// TODO Auto-generated method stub
+		ArrayList<GoTalk> goTalkList = new ArrayList<GoTalk>();
+		Statement statement = null;
+		ResultSet rs = null;
+		connection = DBUtility.open();
+		try {
+			statement = connection.createStatement();
+			rs = statement.executeQuery("select * from t_gotalk");
+			while (rs.next()) {
+				GoTalk goTalk = new GoTalk();
+				
+				goTalk.setUuid(rs.getString("uuid"));
+				goTalk.setName(rs.getString("name"));
+				goTalk.setUrlRemark(rs.getString("urlRemark"));
+				goTalk.setOpenAndclose(rs.getString("openAndclose"));
+				
+				goTalk.setDomain(rs.getString("domain"));
+				goTalk.setSerialTalk(rs.getInt("serialTalk"));
+				goTalk.setUsername(rs.getString("username"));
+				goTalk.setUsertype(rs.getInt("usertype"));
+				goTalk.setPid(rs.getInt("pid"));
+				goTalk.setTs(rs.getInt("ts"));
+				goTalk.setAuth(rs.getString("auth"));
+				goTalk.setUserpassword(rs.getString("userpassword"));
+				goTalk.setServername(rs.getString("servername"));
+				goTalk.setExtradata(rs.getString("extradata"));
+				goTalk.setJumpurl(rs.getString("jumpurl"));
+				
+				goTalkList.add(goTalk);
+			}
+			return goTalkList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("GoTalkDaoImpl的查询部门列表失败");
+			GoTalk goTalk = new GoTalk();
+			goTalk.setUuid("GoTalkDaoImpl查询失败返回的uuid");
+			ArrayList<GoTalk> listGoTalk = new ArrayList<GoTalk>();
+			listGoTalk.add(goTalk);
+			return goTalkList;
+		} finally {
+			DBUtility.close(rs, statement, connection);
+		}
 	}
 
 }
