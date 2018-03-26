@@ -18,7 +18,8 @@ import java.util.Map;
 import org.apache.commons.httpclient.util.EncodingUtil;
 
 public class HttpUtils {
-	public static void httpSend(String url, List<ParamsBean> params,
+	//返回值 获取传递过来的Url
+	public static String httpSend(String url, List<ParamsBean> params,
 			RequestCallback rcb) {
 		try {
 			URL mUrl = new URL(url);
@@ -40,19 +41,21 @@ public class HttpUtils {
 			String str1 = str.replaceAll("&", "/");
 
 			System.out.println(mUrl+str1);
-
+			String mur = mUrl+str1;
+			
 			out.flush();
 			InputStream is = connection.getInputStream();
 			String result = StreamUtils.getStringFromStream(is);
 			rcb.callBack(result);
 			is.close();
 			out.close();
-
+			return mur;
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("�쳣");
 		}
+		return "";
 
 	}
 	public static void httpSends(String url,RequestCallback rcb) {
