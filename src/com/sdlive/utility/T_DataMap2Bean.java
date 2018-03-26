@@ -41,59 +41,62 @@ public class T_DataMap2Bean {
 
 	}
 	
-	public TalkRoom MapToTalkRoom(Map<String, Object> map) {
+	public TalkRoom MapToTalkRoom(Map<String, Object> map) throws ParseException {
 		String urlRemark = (String) map.get("urlRemark");
-		String keyTalk = (String) map.get("keyTalk");
-		String serialTalk = (String) map.get("serialTalk");
+		String serialTalk = (String) map.get("serial");
 		int seria = 0;
-		if(serialTalk!=null && "".equals(serialTalk)){
+		if(serialTalk!=null && !"".equals(serialTalk)){
 			seria=Integer.parseInt(serialTalk);
 		}
 		String roomNameTalk = (String) map.get("roomNameTalk");
 		String roomtypeTalk = (String) map.get("roomtypeTalk");
 		int roomty=0;
-		if(roomtypeTalk!=null && "".equals(roomtypeTalk)){
+		if(roomtypeTalk!=null && !"".equals(roomtypeTalk)){
 			roomty=Integer.parseInt(roomtypeTalk);
 		}
 		String starttimeTalk = (String) map.get("starttimeTalk");
-		int starttimeTalk1=0;
-		if(starttimeTalk!=null && "".equals(starttimeTalk)){
-			starttimeTalk1=Integer.parseInt(starttimeTalk);
-		}
 		String endtimeTalk = (String) map.get("endtimeTalk");
 		int endtimeTalk1=0;
-		if(endtimeTalk!=null && "".equals(endtimeTalk)){
-			endtimeTalk1=Integer.parseInt(endtimeTalk);
+		if(endtimeTalk!=null && !"".equals(endtimeTalk)){
+			String ab = dateToStamp(endtimeTalk);
+			String a1 = ab.substring(0,10);
+			endtimeTalk1=Integer.parseInt(a1);
+		}
+		int starttimeTalk1=0;
+		if(starttimeTalk!=null && !"".equals(starttimeTalk)){
+			String ab = dateToStamp(starttimeTalk);
+			String a1 = ab.substring(0,10);
+			starttimeTalk1=Integer.parseInt(a1);
 		}
 		String chairmanpwd = (String) map.get("chairmanpwd");
 		String assistantpwd = (String) map.get("assistantpwd");
 		String patrolpwd = (String) map.get("patrolpwd");
 		String passwordrequired = (String) map.get("passwordrequired");
 		int passwordrequired1=0;
-		if(passwordrequired!=null && "".equals(passwordrequired)){
+		if(passwordrequired!=null && !"".equals(passwordrequired)){
 			passwordrequired1=Integer.parseInt(passwordrequired);
 		}
 		String confuserpwd = (String) map.get("confuserpwd");
-		String videotype = (String) map.get("videotype");
+		/*String videotype = (String) map.get("videotype");
 		int videotype1=0;
 		if(videotype!=null && "".equals(videotype)){
 			videotype1=Integer.parseInt(videotype);
-		}
-		String videoframerate = (String) map.get("videoframerate");
+		}*/
+		/*String videoframerate = (String) map.get("videoframerate");
 		int videoframerate1=0;
 		if(videoframerate!=null && "".equals(videoframerate)){
 			videoframerate1=Integer.parseInt(videoframerate);
-		}
+		}*/
 		String confusernum = (String) map.get("confusernum");
 		int confusernum1=0;
-		if(confusernum!=null && "".equals(confusernum)){
+		if(confusernum!=null && !"".equals(confusernum)){
 			confusernum1=Integer.parseInt(confusernum);
 		}
-		String autoopenav = (String) map.get("autoopenav");
+		/*String autoopenav = (String) map.get("autoopenav");
 		int autoopenav1=0;
 		if(autoopenav!=null && "".equals(autoopenav)){
 			autoopenav1=Integer.parseInt(autoopenav);
-		}
+		}*/
 		String modifyDate = (String) map.get("modifyDate");
 		String createPeople = (String) map.get("createPeople");
 		String createDate = (String) map.get("createDate");
@@ -103,7 +106,6 @@ public class T_DataMap2Bean {
 		TalkRoom tr = new TalkRoom();
 		tr.setUuid(uuid);
 		tr.setUrlRemark(urlRemark);
-		tr.setKeyTalk(keyTalk);
 		tr.setSerialTalk(seria);
 		tr.setRoomNameTalk(roomNameTalk);
 		tr.setRoomtypeTalk(roomty);
@@ -114,10 +116,10 @@ public class T_DataMap2Bean {
 		tr.setPatrolpwd(patrolpwd);
 		tr.setPasswordrequired(passwordrequired1);
 		tr.setConfuserpwd(confuserpwd);
-		tr.setVideotype(videotype1);
-		tr.setVideoframerate(videoframerate1);
+		/*tr.setVideotype(videotype1);
+		tr.setVideoframerate(videoframerate1);*/
 		tr.setConfusernum(confusernum1);
-		tr.setAutoopenav(autoopenav1);
+		//tr.setAutoopenav(autoopenav1);
 		tr.setModifyDate(modifyDate);
 		tr.setCreatePeople(createPeople);
 		tr.setCreateDate(createDate);
@@ -127,6 +129,15 @@ public class T_DataMap2Bean {
 		
 		return tr;
 	}
+	
+	public String dateToStamp(String s) throws ParseException{
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = simpleDateFormat.parse(s);
+        long ts = date.getTime();
+        res = String.valueOf(ts);
+        return res;
+    }
 	  public GoTalk MapToGoTalk(Map<String, Object> map) {
 		    String uuid = (String) map.get("uuid");// 删除和修改的时候会有值，新增和查询的时候没有值
 		    String name = (String) map.get("name");
